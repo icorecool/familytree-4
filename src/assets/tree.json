@@ -1,0 +1,63 @@
+{
+    "folders": [
+        {
+            "name": "王新觉",
+            "partner":["何朝霞","柯丹妮"],
+            "sex":"man",
+            "children": [{
+            "name": "王东辉",
+            "partner":["李长英"],
+            "sex":"man",
+                "children": [{
+                    "name": "王淑玲",
+                    "partner":["柯强"],
+                    "sex":"woman"
+                }]
+            }, {
+            "name": "王绍强",
+            "partner":["柯彩璐"],
+            "sex":"man",
+                "children": [{
+                    "name": "王应博",
+                    "partner":["陈美玲"],
+                    "sex":"man",
+                    "children": [{
+                        "name": "王启淑",
+                        "sex":"woman"
+                    },{
+                        "name": "王淑华",
+                        "sex":"woman"
+                    }]
+                }, {
+                   "name": "王泽立",
+                   "partner":["李娜"],
+                   "sex":"man",
+                   "children": [{
+                        "name": "王宵臣",
+                        "sex":"man",
+                        "partner":["石丹"],
+                        "children":[{
+                            "name":"王珊珊",
+                            "sex":"woman"
+                        },{
+                            "name":"王强",
+                            "sex":"man",
+                            "partner":["李晴"],
+                            "children":[{
+                                "name":"王思聪",
+                                "sex":"man"
+                            }]
+                        }]
+                    }]
+                }, {
+                   "name": "王玲玲",
+                   "sex":"woman"
+                }]
+            },{
+                "name": "王美玲",
+                "partner":["李克强"],
+                "sex":"woman"
+            }]
+        }
+    ]
+}
