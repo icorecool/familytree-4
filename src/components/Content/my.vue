@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-    name:"tree",
+    name:"my",
     data(){
         return{
 

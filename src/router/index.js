@@ -5,6 +5,8 @@ import HomePage from '@/components/HomePage'
 import Tree from '@/components/Content/tree'
 import My from '@/components/Content/my'
 
+import Details from '@/components/Content/details'
+
 import Welcome from '@/components/User/welcome'
 import Login from '@/components/User/Login/login'
 import Reg from '@/components/User/Login/reg'
@@ -28,7 +30,7 @@ export default new Router({
           path: '/tree',
           component: Tree,
           meta: {
-            title: '树谱'
+            title: '家谱'
           }
         }, {
           path: '/my',
@@ -41,18 +43,24 @@ export default new Router({
     }, {
       path: '/login',
       component: Login,
+      name: 'login',
       meta: {
         title: '登陆'
       }
     }, {
       path: '/reg',
       component: Reg,
+      name: 'reg',
       meta: {
         title: '用户注册'
       }
     }, {
       path: '/welcome',
+      name: 'welcome',
       component: Welcome
+    }, {
+      path: '/details/:id(\\d+)',
+      component: Details
     }
   ]
 })

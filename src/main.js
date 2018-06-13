@@ -11,11 +11,7 @@ Vue.config.productionTip = false
 router.beforeEach((to, from, next) => {
   const auth = localStorage.getItem('openIndexPage')
   if (auth) {
-    if (to.path === '/tree' || to.path === '/my') {
-      next()
-    } else {
-      next('/tree')
-    }
+    next()
   } else {
     if (to.path === '/welcome' || to.path === '/login' || to.path === '/reg') {
       next()
@@ -23,6 +19,10 @@ router.beforeEach((to, from, next) => {
       next('/welcome')
     }
   }
+
+//  if (!auth && /^(login|reg|welcome)&/to.name) {
+//     next({ path: '/welcome', replace: true })
+//  } else { next() }
 })
 
 /* eslint-disable no-new */

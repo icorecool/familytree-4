@@ -3,7 +3,7 @@
     <li v-for="child in children">
       <tree-folder v-if="child.children" :folder="child"></tree-folder>
         <div class="case" v-else>
-            <a class="info" :class="child.sex">
+            <a class="info" :class="child.sex" @click="GoToDetails(child)">
                 <div class="name">{{ child.name }}</div>
                 <div class="partner" v-show="!!child.partner" v-for='list in child.partner'>{{ list }}</div>
             </a>
@@ -17,6 +17,11 @@
     props: ['children'],
     components: {
       TreeFolder
+    },
+    methods:{
+        GoToDetails(child){
+            console.log(child)
+        }
     }
   }
 </script>

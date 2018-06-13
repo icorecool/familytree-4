@@ -14,7 +14,7 @@
     props: ['folder'],
     data: function () {
       return {
-
+ 
       }
     },
     beforeCreate() {
@@ -22,7 +22,10 @@
     },
     methods:{
         GoToDetails(folder){
-            console.log(folder)
+            console.log(folder.id)
+            this.$router.push({
+                path:`/details/${folder.id}`
+            })
         }
     }
   }
