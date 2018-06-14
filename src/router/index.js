@@ -19,24 +19,32 @@ export default new Router({
     {
       path: '',
       component: HomePage,
+      meta: {
+        title: '家谱'
+      },
       children: [
         {
           path: '/',
           component: Tree,
           meta: {
-            title: '家谱'
+            title: '家谱',
+            LoginRequire: true
           }
         }, {
           path: '/tree',
           component: Tree,
+          name: 'tree',
           meta: {
-            title: '家谱'
+            title: '家谱',
+            LoginRequire: true
           }
         }, {
           path: '/my',
           component: My,
+          name: 'my',
           meta: {
-            title: '个人中心'
+            title: '个人中心',
+            LoginRequire: true
           }
         }
       ]
@@ -45,22 +53,32 @@ export default new Router({
       component: Login,
       name: 'login',
       meta: {
-        title: '登陆'
+        title: '登陆',
+        LoginRequire: false
       }
     }, {
       path: '/reg',
       component: Reg,
       name: 'reg',
       meta: {
-        title: '用户注册'
+        title: '注册',
+        LoginRequire: false
       }
     }, {
       path: '/welcome',
       name: 'welcome',
-      component: Welcome
+      component: Welcome,
+      meta: {
+        title: '欢迎',
+        LoginRequire: false
+      }
     }, {
       path: '/details/:id(\\d+)',
-      component: Details
+      component: Details,
+      meta: {
+        title: '详情',
+        LoginRequire: true
+      }
     }
   ]
 })

@@ -92,20 +92,21 @@ export default {
     height: 100vh;
     position: relative;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 .tree-chart {
     position: absolute;
     top: 0;
     left: 0;
-    padding: 5rem /* 80/16 */ 1.25rem /* 20/16 */;
+    padding: 3.125rem /* 50/16 */ 1.25rem /* 20/16 */;
     display: inline-block;
 }
 
 .captions {
     position: fixed;
     left: 0;
-    top: 2.875rem /* 46/16 */;
+    top: 0;
 }
 
 .captions ul {
@@ -147,7 +148,7 @@ export default {
 .number-prople{
     position: fixed;
     right: 0;
-    top: 2.875rem /* 46/16 */;
+    top: 0;
     font-size: .8125rem /* 13/16 */;
     height: 1.25rem /* 20/16 */;
     line-height: 1.25rem /* 20/16 */;

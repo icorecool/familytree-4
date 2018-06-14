@@ -8,7 +8,7 @@
             <div class="login-form">
                 <form @submit.prevent="UserLoginSubmit">
                     <div class="box-input" :class="{current:HighLight=='tel'}">
-                        <input class="login-input input-txt" type="number" autocomplete="off" @focus="PitchOn('tel')" @input="TelNumber" v-focus='onFocus' v-model="UserPhone" placeholder="请输入手机号" />
+                        <input class="login-input input-txt" type="number" maxlength="11" pattern="[0-9]*" autocomplete="off" @focus="PitchOn('tel')" @input="TelNumber" v-focus='onFocus' v-model="UserPhone" placeholder="请输入手机号" />
                     </div>
                     <div class="box-input" :class="{current:HighLight=='password'}">
                         <input class="login-input input-pw" type="password" v-model="UserPassWord" @focus="PitchOn('password')" placeholder="请输入密码" />
@@ -48,6 +48,14 @@ export default {
             }
         }
     },
+    beforeRouteEnter (to, from, next) {
+        const auth = localStorage.getItem('openIndexPage')
+        if(auth){
+             next('/')
+        }else{
+            next()
+        }
+    },
     methods: {
         PitchOn(msg){
             this.HighLight = msg
@@ -64,14 +72,15 @@ export default {
                  this.popupVisible = true
                  setTimeout(()=>{
                     self.popupVisible = false
-                 },2400)
+                    self.UserPhone = ''
+                 },2000)
             }else{
                 if(this.UserPassWord.length<6 || this.UserPassWord.length==0){
                     this.UserPrompts = "密码不能小于6位数"
                     this.popupVisible = true
                     setTimeout(()=>{
                         self.popupVisible = false
-                    },2400)
+                    },2000)
                 }else{
                     axios.post('http://120.78.176.178:8080/v1/fam/user/login', {
                         password:this.UserPassWord,
@@ -79,12 +88,14 @@ export default {
                     })
                     .then(response => {
                         self.LoginCode = response.data.err_code
-                        if(this.LoginCode == 1004){
+                        if(this.LoginCode == 1004 || this.LoginCode == 1010){
                             this.UserPrompts = "账号或密码错误 请重新输入"
                             this.popupVisible = true,
                             setTimeout(()=>{
-                                 self.popupVisible = false
-                            },2400)
+                                self.popupVisible = false
+                                self.UserPhone = ''
+                                self.UserPassWord = ''
+                            },2000)
                         }
                         if(this.LoginCode == 0){
                             this.UserPrompts = "登陆成功"
@@ -92,9 +103,9 @@ export default {
                             this.LoginSuccess = true
                             localStorage.setItem("openIndexPage", true);   
                             setTimeout(()=>{
-                                this.$router.push({ path:'/'})
+                                this.$router.replace('/')
                                 self.popupVisible = false
-                            },2400)
+                            },2000)
                         }
                     })
                     .catch(error => {
@@ -122,7 +133,6 @@ export default {
 
 .hd-bar {
     font-size:2.125rem /* 34/16 */;
-    font-weight: 700;
     color: #333;
 }
 </style>

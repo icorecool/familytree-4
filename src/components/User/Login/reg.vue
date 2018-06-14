@@ -120,6 +120,5 @@ export default {
     height: 2.875rem /* 46/16 */;
     border: none;
     font-size: 1.125rem /* 18/16 */;
-    font-weight: 600;
 }
 </style>

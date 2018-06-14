@@ -14,7 +14,7 @@
     props: ['folder'],
     data: function () {
       return {
- 
+
       }
     },
     beforeCreate() {
@@ -22,9 +22,23 @@
     },
     methods:{
         GoToDetails(folder){
-            console.log(folder.id)
+            // console.log(folder.children
+            // folder.children.forEach( (value,index) => {
+            //      folder.children = JSON.stringify(value[index])
+            // });
+
+        JSON.stringify(folder.partner)
+           
+           console.log(folder,  JSON.stringify(folder.partner))
+           
+           // JSON.stringify(folder.children.shift())
+
+        
             this.$router.push({
-                path:`/details/${folder.id}`
+                path:`/details/${folder.id}`,
+                query:{
+                    
+                }
             })
         }
     }

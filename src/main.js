@@ -9,20 +9,22 @@ Vue.use(Mint)
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-  const auth = localStorage.getItem('openIndexPage')
-  if (auth) {
-    next()
-  } else {
-    if (to.path === '/welcome' || to.path === '/login' || to.path === '/reg') {
-      next()
-    } else {
-      next('/welcome')
-    }
+  if (to.meta.title) {
+    document.title = to.meta.title
   }
-
-//  if (!auth && /^(login|reg|welcome)&/to.name) {
-//     next({ path: '/welcome', replace: true })
-//  } else { next() }
+  const auth = localStorage.getItem('openIndexPage')
+  if (to.matched.some(record => record.meta.LoginRequire)) {
+    if (!auth) {
+      next({
+        path: '/welcome',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 /* eslint-disable no-new */

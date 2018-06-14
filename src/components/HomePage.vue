@@ -2,21 +2,20 @@
   <div class="home-page">
 
     <div class="container">
-      <HeaderBar/>
         <router-view/>
-      <FooterTab/>
+        <FooterTab/>
     </div>
   </div>
 </template>
 
 <script>
-import Header from './HeaderBar/bar'
+// import Header from './HeaderBar/bar'
 import Footer from './FooterTab/tab'
 
 export default {
   name: 'HomePage',
   components:{
-    HeaderBar : Header,
+    // HeaderBar : Header,
     FooterTab : Footer
   }
 }

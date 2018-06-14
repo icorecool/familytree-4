@@ -66,6 +66,7 @@ export default {
 body {
     background: #fff;
     -webkit-font-smoothing: antialiased;
+    font-family: Microsoft Yahei,SimSun,Helvetica;
 }
 
 a,

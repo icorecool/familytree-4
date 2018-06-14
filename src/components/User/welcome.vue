@@ -26,7 +26,7 @@ export default {
 <style scoped>
 .light-box{
     width: 100%;
-    height: 31.25rem /* 500/16 */;
+    height: 26.25rem /* 420/16 */;
     background: #ddd;
 }
 
