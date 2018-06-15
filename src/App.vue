@@ -16,14 +16,14 @@ export default {
   },
   watch: {  
     $route(to, from) {  
-      if(to.path == '/'){  
-        this.transitionName = 'slide-right';
-      }else{  
-        this.transitionName = 'slide-left';
-      }
-      if(to.path == '/login' || to.path == '/reg'){  
-          this.transitionName = 'slide-bottom';
-      }
+        const toDepth = to.path.split('/').length
+        const fromDepth = from.path.split('/').length
+        this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+        if(to.path == '/login' || to.path == '/reg'){
+            this.transitionName = 'slide-bottom'
+        }else if(to.path == '/welcome'){
+            this.transitionName = 'slide-up'
+        }
     }  
   }  
 }
@@ -51,12 +51,12 @@ export default {
     transform: translate(-100px, 0);  
 }
 
-.slide-bottom-enter{
+.slide-bottom-enter, .slide-up-leave-active{
     opacity: 0;
     overflow: hidden;
     transform: translate(0, 100px);  
 }  
-.slide-bottom-leave-active{  
+.slide-bottom-leave-active, .slide-up-enter{  
     opacity: 0;
     overflow: hidden;
     transform: translate(0, -100px);  
@@ -424,10 +424,28 @@ template {
 }
 
 /* 公共样式 */
-/* 按钮 */
+
 .container{
     height: 100%;
 }
+
+/* 按钮 */
+.button{
+    width: 100%;
+    height: 2.25rem /* 36/16 */;
+    border: none;
+}
+
+.button.red{
+    background: #F44336;
+    color: #fff;
+}
+
+.button.red:active{
+    background: #bb2c22;
+}
+
+/* 表单 */
 input::-webkit-input-placeholder {
     font-size: 1rem /* 16/16 */;
     font-weight: 200;
@@ -465,8 +483,18 @@ input::-webkit-input-placeholder {
 }
 
 .btn-submit:active {
-    background: #ffba00;
+    background: #FF9800;
 }
+/* 布局 */
+.full{
+    width: 100%;
+    height: 3rem /* 48/16 */;
+}
+
+.space{
+    padding: .9375rem /* 15/16 */;
+}
+
 /* 顶部弹出层 */
 .popup{
     width: 100%;

@@ -30,13 +30,13 @@ export default {
         return {
             onFocus: true,
             Disabled: true,
-            HighLight:"tel",
-            UserPhone:"",
-            UserPassWord:"",
+            HighLight:'tel',
+            UserPhone:'',
+            UserPassWord:'',
             LoginSuccess:false,
             popupVisible:false,
-            UserPrompts:"",
-            LoginCode:""
+            UserPrompts:'',
+            LoginCode:''
         }
     },
     directives: {
@@ -48,12 +48,12 @@ export default {
             }
         }
     },
-    beforeRouteEnter (to, from, next) {
-        const auth = localStorage.getItem('openIndexPage')
-        if(auth){
-             next('/')
-        }else{
+    beforeRouteEnter(to, from, next){
+        const token = localStorage.getItem('access_token')
+        if(token === null){
             next()
+        }else{
+            next('/')
         }
     },
     methods: {
@@ -88,20 +88,27 @@ export default {
                     })
                     .then(response => {
                         self.LoginCode = response.data.err_code
-                        if(this.LoginCode == 1004 || this.LoginCode == 1010){
-                            this.UserPrompts = "账号或密码错误 请重新输入"
+                        if(this.LoginCode == 1004){
+                            this.UserPrompts = "密码错误 请重新输入"
                             this.popupVisible = true,
                             setTimeout(()=>{
                                 self.popupVisible = false
-                                self.UserPhone = ''
                                 self.UserPassWord = ''
+                            },2000)
+                        }
+                        if(this.LoginCode == 1010){
+                            this.UserPrompts = "该用户还未注册"
+                            this.popupVisible = true,
+                            setTimeout(()=>{
+                                this.$router.replace('/reg')
+                                self.popupVisible = false
                             },2000)
                         }
                         if(this.LoginCode == 0){
                             this.UserPrompts = "登陆成功"
                             this.popupVisible = true
                             this.LoginSuccess = true
-                            localStorage.setItem("openIndexPage", true);   
+                            localStorage.setItem('access_token', response.data.data.access_token)
                             setTimeout(()=>{
                                 this.$router.replace('/')
                                 self.popupVisible = false

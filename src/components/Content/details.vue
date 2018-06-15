@@ -1,12 +1,19 @@
 <template>
     <div class="details">
         <div class="details-list">
-            <ul>
-                <li>{{detailsArry.name}}</li>
-                <div class="children-list" v-for='list in detailsArry.children'>
-                    {{list.name}}
+            <div class="info">
+                <div class="name">{{detailsArry.name}}</div>
+                <div class="partner" v-if='!!detailsArry.partner'>
+                    <h3 class="title">配偶:</h3>
+                    <div class="partner-list" v-for='list in detailsArry.partner'>{{list}}</div>
                 </div>
-            </ul>
+                <div class="offspring" v-if='!!detailsArry.children'>
+                    <h3 class="title">后代:</h3>
+                    <ul class="children-list">
+                        <li v-for='list in detailsArry.children'>{{list.name}}</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>    
 </template>

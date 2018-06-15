@@ -4,17 +4,14 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
+  access_token: localStorage.getItem('access_token'),
+  foldersArry: '',
   detailsArry: []
 }
 
 // const mutations = {
-//   add (state) {
-//     state.count += 1
-//     console.log(state.count, state.detailsArry)
-//   },
-//   reduce (state) {
-//     state.count -= 1
-//     console.log(state.count)
+//   getToken (state, data) {
+//     state.access_token = data
 //   }
 // }
 

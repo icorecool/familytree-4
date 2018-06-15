@@ -64,6 +64,7 @@ export default {
         axios.get('http://oss-hys.oss-cn-hangzhou.aliyuncs.com/tree.json')
         .then(response => {
             self.folders = response.data.folders
+            this.$store.state.foldersArry = response.data.folders         
 
             let partnerArry = []
             let generations = []
@@ -99,7 +100,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    padding: 3.125rem /* 50/16 */ 1.25rem /* 20/16 */;
+    padding: 2.5rem /* 40/16 */ .625rem /* 10/16 */ 6.25rem /* 100/16 */;
     display: inline-block;
 }
 

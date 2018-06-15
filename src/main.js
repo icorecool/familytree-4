@@ -8,16 +8,19 @@ import router from './router'
 import store from './store/index'
 
 Vue.use(Mint, Vuex)
-
 Vue.config.productionTip = false
+document.body.addEventListener('touchstart', function () {})
+
+console.log(store.state.access_token)
 
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   }
-  const auth = localStorage.getItem('openIndexPage')
+
+  const token = localStorage.getItem('access_token')
   if (to.matched.some(record => record.meta.LoginRequire)) {
-    if (!auth) {
+    if (token === null) {
       next({
         path: '/welcome',
         query: { redirect: to.fullPath }
