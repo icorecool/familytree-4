@@ -1,10 +1,13 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import App from './App'
 import router from './router'
 
-Vue.use(Mint)
+import store from './store/index'
+
+Vue.use(Mint, Vuex)
 
 Vue.config.productionTip = false
 
@@ -31,6 +34,7 @@ router.beforeEach((to, from, next) => {
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

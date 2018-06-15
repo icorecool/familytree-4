@@ -7,15 +7,21 @@
                     {{list.name}}
                 </div>
             </ul>
-        </div>  
+        </div>
     </div>    
 </template>
 <script>
+
 export default {
     name:"Details",
     data(){
         return{
-            detailsArry:this.$route.query
+            detailsArry:this.$store.state.detailsArry
+        }
+    },
+    created(){
+        if(this.$store.state.detailsArry.length === 0){
+            this.$router.go(-1)
         }
     }
 }

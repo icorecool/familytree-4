@@ -22,23 +22,9 @@
     },
     methods:{
         GoToDetails(folder){
-            // console.log(folder.children
-            // folder.children.forEach( (value,index) => {
-            //      folder.children = JSON.stringify(value[index])
-            // });
-
-        JSON.stringify(folder.partner)
-           
-           console.log(folder,  JSON.stringify(folder.partner))
-           
-           // JSON.stringify(folder.children.shift())
-
-        
-            this.$router.push({
+           this.$store.state.detailsArry = folder
+           this.$router.push({
                 path:`/details/${folder.id}`,
-                query:{
-                    
-                }
             })
         }
     }

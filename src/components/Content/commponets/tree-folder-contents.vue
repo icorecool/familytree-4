@@ -20,7 +20,10 @@
     },
     methods:{
         GoToDetails(child){
-            console.log(child)
+            this.$store.state.detailsArry = child
+            this.$router.push({
+                path:`/details/${child.id}`,
+            })
         }
     }
   }
