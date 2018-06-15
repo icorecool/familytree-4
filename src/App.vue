@@ -20,9 +20,9 @@ export default {
         const fromDepth = from.path.split('/').length
         this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
         if(to.path == '/login' || to.path == '/reg'){
-            this.transitionName = 'slide-bottom'
-        }else if(to.path == '/welcome'){
             this.transitionName = 'slide-up'
+        }else if(to.path == '/welcome'){
+            this.transitionName = 'slide-bottom'
         }
     }  
   }  
