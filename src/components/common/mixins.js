@@ -1,3 +1,4 @@
+// 二叉树深度遍历
 const traverseDF = function (treeNodes) {
   if (!treeNodes || !treeNodes.length) return
   var order = []
@@ -11,6 +12,7 @@ const traverseDF = function (treeNodes) {
   return order
 }
 
+// 汇总求和
 const getSum = function sum (arr) {
   if (arr.length === 0) {
     return 0
@@ -21,6 +23,7 @@ const getSum = function sum (arr) {
   }
 }
 
+// 生成随机数 用来记录操作 占时没用  先放着吧
 const OperationNumber = function randomNum (n) {
   var t = ''
   for (var i = 0; i < n; i++) {

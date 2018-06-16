@@ -22,7 +22,7 @@
     },
     methods:{
         GoToDetails(folder){
-           this.$store.state.detailsArry = folder
+           this.$store.commit('getDetailsArry', folder)
            this.$router.push({
                 path:`/details/${folder.id}`,
             })

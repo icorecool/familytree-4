@@ -20,7 +20,7 @@
     },
     methods:{
         GoToDetails(child){
-            this.$store.state.detailsArry = child
+            this.$store.commit('getDetailsArry', child)
             this.$router.push({
                 path:`/details/${child.id}`,
             })

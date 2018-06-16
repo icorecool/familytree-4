@@ -108,7 +108,7 @@ export default {
                             this.UserPrompts = "登陆成功"
                             this.popupVisible = true
                             this.LoginSuccess = true
-                            localStorage.setItem('access_token', response.data.data.access_token)
+                            this.$store.commit('getToken', response.data.data.access_token)
                             setTimeout(()=>{
                                 this.$router.replace('/')
                                 self.popupVisible = false

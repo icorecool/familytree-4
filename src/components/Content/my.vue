@@ -18,7 +18,7 @@ export default {
     },
     methods:{
         outLogin(){
-            localStorage.removeItem('access_token')
+            this.$store.commit('outLogin')
             this.UserPrompts = '退出成功'
             this.popupVisible = true
             setTimeout(()=>{

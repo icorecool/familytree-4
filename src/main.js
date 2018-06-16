@@ -11,14 +11,13 @@ Vue.use(Mint, Vuex)
 Vue.config.productionTip = false
 document.body.addEventListener('touchstart', function () {})
 
-console.log(store.state.access_token)
-
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   }
 
-  const token = localStorage.getItem('access_token')
+  const token = store.getters.getToken
+  console.log(token)
   if (to.matched.some(record => record.meta.LoginRequire)) {
     if (token === null) {
       next({

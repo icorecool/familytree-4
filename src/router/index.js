@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HomePage from '@/components/HomePage'
 
 import Tree from '@/components/Content/tree'
+import List from '@/components/Content/list'
 import My from '@/components/Content/my'
 
 import Details from '@/components/Content/details'
@@ -36,6 +37,14 @@ export default new Router({
           name: 'tree',
           meta: {
             title: '家谱',
+            LoginRequire: true
+          }
+        }, {
+          path: '/list',
+          component: List,
+          name: 'list',
+          meta: {
+            title: '成员列表',
             LoginRequire: true
           }
         }, {

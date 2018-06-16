@@ -23,13 +23,11 @@ export default {
     name:"Details",
     data(){
         return{
-            detailsArry:this.$store.state.detailsArry
+            detailsArry:''
         }
     },
     created(){
-        if(this.$store.state.detailsArry.length === 0){
-            this.$router.go(-1)
-        }
+        this.detailsArry = this.$store.getters.getDetailsArry
     }
 }
 </script>
