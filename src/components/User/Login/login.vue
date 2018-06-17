@@ -14,7 +14,7 @@
                         <input class="login-input input-pw" type="password" v-model="UserPassWord" @focus="PitchOn('password')" placeholder="请输入密码" />
                     </div>
                     <div class="box-button">
-                        <button class="btn btn-submit" type="submit" @click="UserLoginSubmit">登 录</button>
+                        <button class="btn btn-submit" type="submit" @click="UserLoginSubmit">{{loginTxt}}</button>
                     </div>
                 </form>
             </div>
@@ -23,6 +23,7 @@
 </template>
 <script>
 import axios from "axios"
+import treeVue from '../../Content/tree.vue';
 
 export default {
     name: 'Login',
@@ -30,6 +31,7 @@ export default {
         return {
             onFocus: true,
             Disabled: true,
+            loginTxt:'登陆',
             HighLight:'tel',
             UserPhone:'',
             UserPassWord:'',
@@ -48,13 +50,15 @@ export default {
             }
         }
     },
-    beforeRouteEnter(to, from, next){
-        const token = localStorage.getItem('access_token')
-        if(token === null){
-            next()
-        }else{
-            next('/')
-        }
+    beforeRouteEnter  (to, from, next){
+        next(vm => {
+            const token = vm.$store.getters.getToken
+            if(token){
+                next({path: '/', replace: true})
+            }else{
+                next()
+            }            
+        })
     },
     methods: {
         PitchOn(msg){
@@ -109,6 +113,7 @@ export default {
                             this.popupVisible = true
                             this.LoginSuccess = true
                             this.$store.commit('getToken', response.data.data.access_token)
+                            this.loginTxt = '登陆中...'
                             setTimeout(()=>{
                                 this.$router.replace('/')
                                 self.popupVisible = false

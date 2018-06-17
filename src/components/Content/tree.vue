@@ -65,6 +65,7 @@ export default {
         .then(response => {
             self.folders = response.data.folders
             this.$store.state.foldersArry = response.data.folders         
+            this.$store.commit('getFoldersArry', response.data.folders)
 
             let partnerArry = []
             let generations = []

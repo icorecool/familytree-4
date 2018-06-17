@@ -8,7 +8,7 @@
                 <router-link to='/reg' class="a-btn btn btn-reg">注册</router-link>
             </div>
             <div class="flex-btn">
-                <router-link to='/login' class="a-btn btn">登陆</router-link>
+                <router-link to='/login' class="a-btn btn">{{loginTxt}}</router-link>
             </div>
        </div>
     </div>
@@ -18,7 +18,7 @@ export default {
     name:"Welcome",
     data(){
         return{
-
+            loginTxt:this.$store.state.loginTxt
         }
     }
 }
@@ -51,6 +51,7 @@ export default {
 .btn{
     width: 100%;
     height:2.875rem /* 46/16 */;
+    line-height: 3rem /* 48/16 */;
     border: 1px solid #fdd000;
     background: #fff;
     border-radius: 6px;

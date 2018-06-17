@@ -19,10 +19,9 @@ router.beforeEach((to, from, next) => {
   const token = store.getters.getToken
   console.log(token)
   if (to.matched.some(record => record.meta.LoginRequire)) {
-    if (token === null) {
+    if (!token) {
       next({
-        path: '/welcome',
-        query: { redirect: to.fullPath }
+        path: '/welcome'
       })
     } else {
       next()

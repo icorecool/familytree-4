@@ -503,6 +503,7 @@ input::-webkit-input-placeholder {
     line-height: 2.5rem /* 40/16 */;
     background: #F44336;
     color: #fff;
+    opacity: .92;
 }
 
 .popup.success{
