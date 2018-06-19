@@ -66,7 +66,7 @@ export default {
 body {
     background: #fff;
     -webkit-font-smoothing: antialiased;
-    font-family: Microsoft Yahei,SimSun,Helvetica;
+    font-family:Microsoft Yahei,SimSun,Helvetica;
 }
 
 a,
@@ -153,7 +153,6 @@ video {
     margin: 0;
     padding: 0;
     border: 0;
-    font: inherit;
     vertical-align: baseline;
 }
 
@@ -234,7 +233,8 @@ body {
 }
 
 ::-webkit-scrollbar {
-    display: none;
+    width: 0;
+    height: .0313rem;
 }
 
 body,
@@ -293,7 +293,6 @@ button,
 input,
 select,
 textarea {
-    font-family: inherit;
     font-size: 100%;
     margin: 0;
     vertical-align: baseline;
