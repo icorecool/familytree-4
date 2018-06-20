@@ -24,7 +24,7 @@ const getSum = function sum (arr) {
 }
 
 // 拼音排序
-const pySegSort = function pySort (arr, empty) {
+const pySegSort = function (arr, empty) {
   if (!String.prototype.localeCompare) { return null }
 
   var letters = '*abcdefghjklmnopqrstwxyz'.split('')
@@ -49,8 +49,8 @@ const pySegSort = function pySort (arr, empty) {
   return segs
 }
 
-// 选取class
-const getElementsClass = function getClass (classnames) {
+// dom操作
+const getElementsClass = function (classnames) {
   let classobj = []
   let classint = 0
   let tags = document.getElementsByTagName('*')
@@ -66,8 +66,17 @@ const getElementsClass = function getClass (classnames) {
   return classobj
 }
 
+const siblings = function (elm) {
+  var a = []
+  var p = elm.parentNode.children
+  for (var i = 0, pl = p.length; i < pl; i++) {
+    if (p[i] !== elm) a.push(p[i])
+  }
+  return a
+}
+
 // 生成随机数 用来记录操作 占时没用  先放着吧
-const OperationNumber = function randomNum (n) {
+const OperationNumber = function (n) {
   var t = ''
   for (var i = 0; i < n; i++) {
     t += Math.floor(Math.random() * 10)
@@ -75,4 +84,4 @@ const OperationNumber = function randomNum (n) {
   return t
 }
 
-export { traverseDF, getSum, OperationNumber, pySegSort, getElementsClass }
+export { traverseDF, getSum, OperationNumber, pySegSort, getElementsClass, siblings }

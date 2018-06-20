@@ -1,14 +1,19 @@
 <template>
     <div class="list">
         <div class="index-list">
-            <div class="item" v-for='item in ListArry'>
-                <div class="item-title">{{item.letter}}</div>
+            <div class="title-fixed" v-if='scrollTop > 0'>{{nodeLetter}}</div>
+            <div class="item" v-for='item in ListArry' :name="'point'+item.letter">
+                <a href="javascript:;" class="item-title">
+                    {{item.letter}}
+                </a>
                 <div class="item-name" v-for='list in item.data'>{{list}}</div>
             </div>
         </div>
         <div class="mod-list">
             <ul class="indexlist-navlist">
-                <li class="indexlist-navitem" v-for='list in ListArry'>{{list.letter}}</li>
+                <li class="indexlist-navitem" v-for='(list,i) in ListArry'>
+                    <v-touch tag='a' v-on:Swipe="gotoNode(i)">{{list.letter}}</v-touch>
+                </li>
             </ul>
         </div>
     </div>
@@ -21,7 +26,8 @@ export default {
     data(){
         return{
             ListArry:'',
-            divScroll:''
+            scrollTop:'',
+            nodeLetter:''
         }
     },
     created(){
@@ -45,9 +51,18 @@ export default {
     methods:{
         hanleScroll () {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-            getElementsClass("item").forEach(e=>{
-                console.log(e.offsetTop,e.offsetHeight)
+            this.scrollTop = scrollTop
+            getElementsClass('item').forEach((e,i) =>{
+               let t = e.offsetTop
+               let h = e.offsetHeight
+                if(t < scrollTop && scrollTop < t + h){
+                    this.nodeLetter = this.ListArry[i].letter
+                }
             })
+        },
+        gotoNode(i){
+            event.preventDefault()
+            this.nodeLetter = this.ListArry[i].letter
         }
     }
 }
@@ -68,22 +83,26 @@ export default {
 
 .mod-list{
     position: fixed;
-    right: .3125rem /* 5/16 */;
+    right: 0;
     top: 0;
+    width: 1.25rem /* 20/16 */;
     height: 100%;
     text-align: center;
     justify-content: center;
     -webkit-box-pack: center;
 }
 
-
 .indexlist-navitem{
     font-size: .75rem /* 12/16 */;
     -webkit-touch-callout: none;
     user-select: none;
     -webkit-touch-callout: none;
-    color: #0c64ff;
     font-weight: 700;
+}
+
+.indexlist-navitem a{
+    display: block;
+    color: #0c64ff;
 }
 
 .index-list{
@@ -95,7 +114,18 @@ export default {
     border-top: 1px solid #ededed;
 }
 
-.item-title{
+.title-fixed{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+a.item-title{
+    display: block;
+    color: #333;
+}
+
+.item-title,.title-fixed{
     height: 2rem /* 32/16 */;
     line-height: 2rem /* 32/16 */;
     background: #f2f2f2;
