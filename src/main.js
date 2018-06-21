@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import VueTouch from 'vue-touch'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import App from './App'
@@ -9,7 +8,6 @@ import router from './router'
 import store from './store/index'
 
 Vue.use(Mint, Vuex)
-Vue.use(VueTouch, {name: 'v-touch'})
 
 Vue.config.productionTip = false
 document.body.addEventListener('touchstart', function () {})

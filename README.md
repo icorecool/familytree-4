@@ -1,6 +1,6 @@
 # familytree
 
-> A Vue.js project
+> 这是一个基于vue的 族谱 h5 页面
 
 ## Build Setup
 

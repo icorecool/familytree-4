@@ -2,19 +2,20 @@
     <div class="list">
         <div class="index-list">
             <div class="title-fixed" v-if='scrollTop > 0'>{{nodeLetter}}</div>
-            <div class="item" v-for='item in ListArry' :name="'point'+item.letter">
+            <div class="item" v-for='item in ListArry'>
                 <a href="javascript:;" class="item-title">
                     {{item.letter}}
                 </a>
                 <div class="item-name" v-for='list in item.data'>{{list}}</div>
             </div>
         </div>
-        <div class="mod-list">
-            <ul class="indexlist-navlist">
-                <li class="indexlist-navitem" v-for='(list,i) in ListArry'>
-                    <v-touch tag='a' v-on:Swipe="gotoNode(i)">{{list.letter}}</v-touch>
-                </li>
-            </ul>
+        <div class="mod-list" :class="{shade:addClass}">
+            <div class="indexlist-navlist" @touchstart='touchStart($event)' @touchmove="touchMove($event)" @touchend='touchEnd'>
+                <a  @click="gotoIndex(i)" v-for='(list,i) in ListArry' class="indexlist-navitem">
+                    <b class="index-txt">{{list.letter}}</b>
+                    <i class="bubble" :class="{show:i == bubbleIsShow}">{{list.letter}}</i>
+                </a>
+            </div>
         </div>
     </div>
 </template>
@@ -27,7 +28,9 @@ export default {
         return{
             ListArry:'',
             scrollTop:'',
-            nodeLetter:''
+            nodeLetter:'',
+            addClass:false,
+            bubbleIsShow:null
         }
     },
     created(){
@@ -53,23 +56,36 @@ export default {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
             this.scrollTop = scrollTop
             getElementsClass('item').forEach((e,i) =>{
-               let t = e.offsetTop
+               let t = e.offsetTop - 2
                let h = e.offsetHeight
                 if(t < scrollTop && scrollTop < t + h){
                     this.nodeLetter = this.ListArry[i].letter
                 }
             })
         },
-        gotoNode(i){
+        gotoIndex(i){
+            getElementsClass('item')[i].scrollIntoView()
+            this.bubbleIsShow = i
+        },
+        touchStart(event){
             event.preventDefault()
-            this.nodeLetter = this.ListArry[i].letter
+            this.addClass = true
+        },
+        touchMove(event){
+            event.preventDefault()
+            var a = document.elementFromPoint(event.touches[0].clientX,event.touches[0].clientY);
+            a.click()
+        },
+        touchEnd(){
+            this.addClass = false
+            this.bubbleIsShow = null
         }
     }
 }
 </script>
 <style scoped>
 .list{
-
+ 
 }
 
 .mod-list,.indexlist-navlist{
@@ -81,13 +97,65 @@ export default {
     flex-direction: column;
 }
 
+.indexlist-navlist{
+    position: relative;
+    z-index: 10;
+}
+
+.mod-list.shade{
+    width: 100%;
+}
+
+.mod-list.shade .indexlist-navlist{
+    position: absolute;
+    width: 100%;
+    right: 0;
+}
+
+.mod-list.shade .indexlist-navlist a.indexlist-navitem{
+    display: block;
+    padding-right: .46875rem /* 7.5/16 */;
+}
+
+b.index-txt{
+    width: 1.5rem /* 24/16 */;
+    height: 1.5rem /* 24/16 */;
+    display: block;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+i.bubble{
+    position: absolute;
+    width: 3.125rem /* 50/16 */;
+    height: 3.125rem /* 50/16 */;
+    text-align: center;
+    line-height: 3.125rem /* 50/16 */;
+    right: 3.75rem /* 60/16 */;
+    top: 50%;
+    margin-top: -1.5625rem /* 25/16 */;
+    display: block;
+    background: rgba(51, 51, 51, 0.72);
+    color: #fff;
+    border-radius: 50%;
+    display: none;
+    font-size: 1.5rem /* 24/16 */;
+    font-style: normal;
+    font-weight: 200;
+}
+
+i.bubble.show{
+    display: block;
+}
+
 .mod-list{
     position: fixed;
     right: 0;
     top: 0;
-    width: 1.25rem /* 20/16 */;
+    width: 1.5rem /* 24/16 */;
     height: 100%;
-    text-align: center;
     justify-content: center;
     -webkit-box-pack: center;
 }
@@ -100,9 +168,12 @@ export default {
     font-weight: 700;
 }
 
-.indexlist-navitem a{
+a.indexlist-navitem{
     display: block;
     color: #0c64ff;
+    height: 1.5rem /* 24/16 */;
+    line-height: 1.5rem /* 24/16 */;
+    position: relative;
 }
 
 .index-list{
