@@ -1,5 +1,5 @@
 <template>
-    <div class="list">
+    <div class="list" @scroll="scrollWarp($event)">
         <div class="index-list">
             <div class="title-fixed" v-if='scrollTop > 0'>{{nodeLetter}}</div>
             <div class="item" v-for='item in ListArry'>
@@ -48,17 +48,11 @@ export default {
         listData = listDataName.concat(listDataPartner)
         this.ListArry =  pySegSort(listData)
     },
-    mounted(){
-       window.addEventListener('scroll', this.hanleScroll)
-    },
     methods:{
-        hanleScroll () {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-            this.scrollTop = scrollTop
-            getElementsClass('item').forEach((e,i) =>{
-               let t = e.offsetTop - 2
-               let h = e.offsetHeight
-                if(t < scrollTop && scrollTop < t + h){
+        scrollWarp(e){
+            this.scrollTop = e.target.scrollTop
+            getElementsClass('item').forEach((event,i)=>{
+                if(e.target.scrollTop >= event.offsetTop ){
                     this.nodeLetter = this.ListArry[i].letter
                 }
             })
@@ -85,7 +79,11 @@ export default {
 </script>
 <style scoped>
 .list{
- 
+    position: static;
+    top: 0;
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 .mod-list,.indexlist-navlist{
@@ -137,13 +135,26 @@ i.bubble{
     top: 50%;
     margin-top: -1.5625rem /* 25/16 */;
     display: block;
-    background: rgba(51, 51, 51, 0.72);
+    background: #333;
     color: #fff;
     border-radius: 50%;
     display: none;
     font-size: 1.5rem /* 24/16 */;
     font-style: normal;
     font-weight: 200;
+}
+
+i.bubble::before{
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 1.25rem /* 20/16 */ solid transparent;
+    border-left: 1.25rem /* 20/16 */ solid #333;
+    border-bottom: 1.25rem /* 20/16 */ solid transparent;
+    position: absolute;
+    left: 2.25rem /* 36/16 */;
+    top: 50%;
+    margin-top: -1.25rem /* 20/16 */;
 }
 
 i.bubble.show{
@@ -189,6 +200,7 @@ a.indexlist-navitem{
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 1;
 }
 
 a.item-title{
@@ -206,12 +218,26 @@ a.item-title{
 .item-name{
     height: 3rem /* 48/16 */;
     line-height: 3rem /* 48/16 */;
-    margin-left: 1.25rem /* 20/16 */;
-    border-bottom: 1px solid #ededed;
+    padding-left: 1.25rem /* 20/16 */;
     color: #333;
+    position: relative;
 }
 
-.item-name:last-of-type{
-    border-bottom: none;
+.item-name::before{
+    content: '';
+    position: absolute;
+    width: 95%;
+    height: 1px;
+    background: #ededed;
+    bottom: 0;
+    right: 0;
+}
+
+.item-name:last-of-type::before{
+    display: none;
+}
+
+.item-name:active{
+    background: #f2f2f2;
 }
 </style>

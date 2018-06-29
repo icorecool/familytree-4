@@ -21,14 +21,14 @@ export default new Router({
       path: '',
       component: HomePage,
       meta: {
-        title: '家谱'
+        title: '族谱'
       },
       children: [
         {
           path: '/',
           component: Tree,
           meta: {
-            title: '家谱',
+            title: '族谱',
             LoginRequire: true
           }
         }, {
@@ -36,7 +36,7 @@ export default new Router({
           component: Tree,
           name: 'tree',
           meta: {
-            title: '家谱',
+            title: '族谱',
             LoginRequire: true
           }
         }, {

@@ -3,7 +3,7 @@
         <div class="wrap">
             <mt-popup v-model="popupVisible" class="popup" :class="{success:LoginSuccess}" position="top" :modal="false">{{UserPrompts}}</mt-popup>
             <div class="hd-bar">
-                家谱
+                族谱
             </div>
             <div class="login-form">
                 <form @submit.prevent="UserLoginSubmit">
@@ -23,7 +23,6 @@
 </template>
 <script>
 import axios from "axios"
-import treeVue from '../../Content/tree.vue';
 
 export default {
     name: 'Login',
@@ -139,7 +138,7 @@ export default {
     height: 2.875rem /* 46/16 */;
     border: none;
     font-size: 1.5rem /* 24/16 */;
-    font-weight: 600;
+    font-weight: 200;
     color: #333;
 }
 
