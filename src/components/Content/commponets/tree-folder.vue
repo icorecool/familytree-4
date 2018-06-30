@@ -1,20 +1,27 @@
 <template>
-  <div class="folder">
-    <div class="case">
-        <a class="info" :class="folder.sex" href="javascript:;" @click="GoToDetails(folder)">
-            <div class="name">{{ folder.name }}</div>
-             <div class="partner" v-show="!!folder.partner" v-for='list in folder.partner'>{{ list }}</div>
-         </a>
+    <div class="folder">
+        <div class="case">
+            <div class="info" :class="folder.sex" @touchstart="show_widget" @touchend="clearLoop" @click="flag && GoToDetails(folder)">
+                <div class="name">{{ folder.name }}</div>
+                <div class="partner" v-show="!!folder.partner" v-for='list in folder.partner'>{{ list }}</div>
+            </div>
+            <div class="widget" v-show='widget_isShow'>
+                <a href="javascript:;" class="add-parent-btn">添加父辈</a>
+                <a href="javascript:;" class="add-child-btn">添加子辈</a>
+                <a href="javascript:;" class="delete-btn">删除</a>
+            </div>
+        </div>
+        <tree-folder-contents :children="folder.children"></tree-folder-contents>
     </div>
-    <tree-folder-contents :children="folder.children"></tree-folder-contents>
-  </div>
 </template>
 <script>
   export default {
     props: ['folder'],
     data: function () {
       return {
-
+          Loop:null,
+          flag:true,
+          widget_isShow:false
       }
     },
     beforeCreate() {
@@ -26,66 +33,101 @@
            this.$router.push({
                 path:`/details/${folder.id}`,
             })
+        },
+        show_widget(){
+            clearInterval(this.Loop)
+            this.Loop = setTimeout(() =>{
+                this.widget_isShow = true
+                this.flag = false
+            },500)
+            this.flag = true
+            this.widget_isShow = false
+            console.log(this.Loop)
+        },
+        clearLoop(){
+            clearInterval(this.Loop)
         }
     }
   }
 </script>
 <style scoped>
-.folder{
+.folder {
     display: flex;
-    flex-wrap:nowrap;
-    align-items:Center;
+    flex-wrap: nowrap;
+    align-items: Center;
 }
 
-.case{
+.case {
     width: 6.25rem /* 100/16 */;
     background: transparent;
     color: #fff;
     text-align: center;
-    line-height:2.25rem /* 36/16 */;
-    padding: .625rem /* 10/16 */;
+    line-height: 2.25rem /* 36/16 */;
+    padding: 0.625rem /* 10/16 */;
     position: relative;
 }
 
 .case::before,
-.case::after{
+.case::after {
     content: '';
     position: absolute;
     top: 50%;
-    width: .625rem /* 10/16 */;
+    width: 0.625rem /* 10/16 */;
     height: 1px;
-    background: #9E9E9E;
+    background: #9e9e9e;
     margin-top: -1px;
 }
 
-.case::before{
+.case::before {
     left: 0;
 }
 
-.case::after{
+.case::after {
     right: 0;
 }
 
-a.info{
+a.info {
     background: transparent;
-    overflow: hidden; 
-    text-overflow: ellipsis; 
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
     text-align: center;
     display: block;
     color: #fff;
+    position: relative;
 }
 
-.info.man:active{
+.widget {
+    position: absolute;
+    top: -3.125rem /* 50/16 */;
+    background: #000;
+    border-radius: 4px;
+    display: flex;
+    z-index: 10;
+}
+
+.widget a {
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    width: 4.375rem /* 70/16 */;
+    font-size: 0.8125rem /* 13/16 */;
+    text-align: center;
+    height: 2.25rem /* 36/16 */;
+    line-height: 2.25rem /* 36/16 */;
+    border-right: 1px solid #666;
+}
+
+.info.man:active {
     opacity: 1;
 }
 
-.info.man{
-    background: #2196F3;
-    opacity: .9;
+.info.man {
+    background: #2196f3;
+    opacity: 0.9;
 }
 
-.info.man .partner{
+.info.man .partner {
     border-bottom: 1px solid #ddd;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
@@ -93,8 +135,7 @@ a.info{
     color: #333;
 }
 
-.folder{
-
+.folder {
 }
 </style>
 

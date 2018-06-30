@@ -1,17 +1,19 @@
 <template>
     <div class="content">
-        <ul class="tree-chart">
-            <li v-for='folder in folders'>
-                <tree-folder v-bind:folder="folder"></tree-folder>
-            </li>
-            <div class="generations">
-                <ul>
-                    <li v-for='(list,index) in Generations' v-if='index > 0'>
-                        {{index}}世
-                    </li>
-                </ul>
-            </div>
-        </ul>
+        <iscroll-view class="scroll-view" :options="{preventDefault: false, zoom: true, zoomMax:1.5, zoomMin:0.5, click: true, taps:true, mouseWheel: true, wheelAction: 'zoom'}">
+            <ul class="tree-chart">
+                <li v-for='folder in folders'>
+                    <tree-folder v-bind:folder="folder"></tree-folder>
+                </li>
+                <div class="generations">
+                    <ul>
+                        <li v-for='(list,index) in Generations' v-if='index > 0'>
+                            {{index}}世
+                        </li>
+                    </ul>
+                </div>
+            </ul>
+        </iscroll-view>
         <div class="captions">
             <ul>
                 <li v-for="list in captions">
@@ -25,7 +27,6 @@
             <span class="number">{{NumberOfPeople}}</span>
             <span>人</span>    
         </div>
-
     </div>
 </template>
 <script>
@@ -56,7 +57,16 @@ export default {
            ],
            folders:'',
            NumberOfPeople:'',
-           Generations:''
+           Generations:'',
+           iscrollConf:{
+                mouseWheel: true,
+                vScrollbar: true,
+                click: true,
+                preventDefault: true,
+                tap: true,
+                bounce: false,
+                disableTouch: true
+           }
         }
     },
     created(){
