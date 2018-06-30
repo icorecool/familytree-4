@@ -1,7 +1,7 @@
 <template>
     <div class="folder">
         <div class="case">
-            <div class="info" :class="folder.sex" @touchstart="show_widget" @touchend="clearLoop" @touchstart="clearLoop" @click="flag && GoToDetails(folder)">
+            <div class="info" :class="folder.sex" @touchstart="show_widget" @touchend="clearLoop" @touchmove="clearLoop" @click="flag && GoToDetails(folder)">
                 <div class="name">{{ folder.name }}</div>
                 <div class="partner" v-show="!!folder.partner" v-for='list in folder.partner'>{{ list }}</div>
             </div>
