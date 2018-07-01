@@ -6,6 +6,8 @@ import Tree from '@/components/Content/tree'
 import List from '@/components/Content/list'
 import My from '@/components/Content/my'
 
+import TreeForm from '@/components/Content/tree-form'
+
 import Details from '@/components/Content/details'
 
 import Welcome from '@/components/User/welcome'
@@ -86,6 +88,13 @@ export default new Router({
       component: Details,
       meta: {
         title: '详情',
+        LoginRequire: true
+      }
+    }, {
+      path: '/tree-form/:id(\\d+)',
+      component: TreeForm,
+      meta: {
+        title: '编辑',
         LoginRequire: true
       }
     }

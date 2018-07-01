@@ -75,7 +75,7 @@ const siblings = function (elm) {
   return a
 }
 
-// 生成随机数 用来记录操作 占时没用  先放着吧
+// 生成随机数
 const OperationNumber = function (n) {
   var t = ''
   for (var i = 0; i < n; i++) {

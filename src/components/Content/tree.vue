@@ -57,16 +57,7 @@ export default {
            ],
            folders:'',
            NumberOfPeople:'',
-           Generations:'',
-           iscrollConf:{
-                mouseWheel: true,
-                vScrollbar: true,
-                click: true,
-                preventDefault: true,
-                tap: true,
-                bounce: false,
-                disableTouch: true
-           }
+           Generations:''
         }
     },
     created(){

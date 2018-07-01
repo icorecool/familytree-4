@@ -1,14 +1,9 @@
 <template>
     <div class="folder">
         <div class="case">
-            <div class="info" :class="folder.sex" @touchstart="show_widget" @touchend="clearLoop" @touchmove="clearLoop" @click="flag && GoToDetails(folder)">
+            <div class="info" :class="folder.sex" @touchstart="show_widget(folder)" @touchend="clearLoop" @touchmove="clearLoop" @click="flag && GoToDetails(folder)">
                 <div class="name">{{ folder.name }}</div>
                 <div class="partner" v-show="!!folder.partner" v-for='list in folder.partner'>{{ list }}</div>
-            </div>
-            <div class="widget" v-show='widget_isShow'>
-                <a href="javascript:;" class="add-parent-btn">添加父辈</a>
-                <a href="javascript:;" class="add-child-btn">添加子辈</a>
-                <a href="javascript:;" class="delete-btn">删除</a>
             </div>
         </div>
         <tree-folder-contents :children="folder.children"></tree-folder-contents>
@@ -20,8 +15,7 @@
     data: function () {
       return {
           Loop:null,
-          flag:true,
-          widget_isShow:false
+          flag:true
       }
     },
     beforeCreate() {
@@ -34,15 +28,16 @@
                 path:`/details/${folder.id}`,
             })
         },
-        show_widget(){
+        show_widget(folder){
             clearInterval(this.Loop)
             this.Loop = setTimeout(() =>{
-                this.widget_isShow = true
                 this.flag = false
+                this.$store.commit('getDetailsArry', folder)
+                this.$router.push({
+                    path:`/tree-form/${folder.id}`,
+                })
             },500)
             this.flag = true
-            this.widget_isShow = false
-            console.log(this.Loop)
         },
         clearLoop(){
             clearInterval(this.Loop)
@@ -99,7 +94,7 @@ a.info {
 
 .widget {
     position: absolute;
-    top: -3.125rem /* 50/16 */;
+    bottom: -3.125rem /* 50/16 */;
     background: #000;
     border-radius: 4px;
     display: flex;
