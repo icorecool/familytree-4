@@ -25,7 +25,9 @@ const getSum = function sum (arr) {
 
 // 拼音排序
 const pySegSort = function (arr, empty) {
-  if (!String.prototype.localeCompare) { return null }
+  if (!String.prototype.localeCompare) {
+    return null
+  }
 
   var letters = '*abcdefghjklmnopqrstwxyz'.split('')
   var zh = '啊把差大额发噶哈级卡啦吗那哦爬器然啥他哇西呀咋'.split('')
@@ -33,7 +35,10 @@ const pySegSort = function (arr, empty) {
   var curr
 
   letters.forEach((list, i) => {
-    curr = { letter: list.toUpperCase(), data: [] }
+    curr = {
+      letter: list.toUpperCase(),
+      data: []
+    }
     arr.forEach(value => {
       if ((!zh[i - 1] || zh[i - 1].localeCompare(value, 'zh') <= 0) && value.localeCompare(zh[i], 'zh') === -1) {
         curr.data.push(value)
@@ -75,6 +80,15 @@ const siblings = function (elm) {
   return a
 }
 
+// 转换时间戳
+const timetrans = function (date) {
+  date = new Date(date)
+  var Y = date.getFullYear() + '年'
+  var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月'
+  var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '日'
+  return Y + M + D
+}
+
 // 生成随机数
 const OperationNumber = function (n) {
   var t = ''
@@ -84,4 +98,12 @@ const OperationNumber = function (n) {
   return t
 }
 
-export { traverseDF, getSum, OperationNumber, pySegSort, getElementsClass, siblings }
+export {
+  traverseDF,
+  getSum,
+  OperationNumber,
+  pySegSort,
+  getElementsClass,
+  siblings,
+  timetrans
+}

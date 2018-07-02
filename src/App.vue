@@ -30,6 +30,14 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: 'iconfont';  /* project id 729561 */
+  src: url('//at.alicdn.com/t/font_729561_wjjw0tqji7n.eot');
+  src: url('//at.alicdn.com/t/font_729561_wjjw0tqji7n.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_729561_wjjw0tqji7n.woff') format('woff'),
+  url('//at.alicdn.com/t/font_729561_wjjw0tqji7n.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_729561_wjjw0tqji7n.svg#iconfont') format('svg');
+}
 /* 页面过渡 */
 .child-view {  
   position: absolute;
