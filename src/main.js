@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Mint from 'mint-ui'
 import IScrollView from 'vue-iscroll-view'
-import IScroll from 'iscroll/build/iscroll-zoom.js'
+import IScrollzoom from 'iscroll/build/iscroll-zoom.js'
 import 'mint-ui/lib/style.css'
 import App from './App'
 import router from './router'
@@ -10,7 +10,7 @@ import router from './router'
 import store from './store/index'
 
 Vue.use(Mint, Vuex)
-Vue.use(IScrollView, IScroll)
+Vue.use(IScrollView, IScrollzoom)
 
 Vue.config.productionTip = false
 document.body.addEventListener('touchstart', function () {})

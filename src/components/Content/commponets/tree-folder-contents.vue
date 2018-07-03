@@ -109,6 +109,7 @@ li:first-child::before{
 
 .info.woman{
     opacity: .9;
+    user-select: none;
 }
 
 

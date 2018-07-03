@@ -2,7 +2,7 @@
     <div class="treeForm">
         <div class="hd-bar">
             <a href="javascript:;" class="fl-l delete">删除</a>
-            <a href="javascript:;" class="fl-r">取消</a>
+            <a href="javascript:;" class="fl-r" @click="cancel">取消</a>
         </div>
         <div class="info">
             <div class="avater">
@@ -79,11 +79,14 @@
             </div>            
         </div>
         <!-- 时间选择器 -->
-        <mt-datetime-picker ref="picker" type="date" year-format="{value} 年" :startDate='startTime' :endDate='endTime' month-format="{value} 月" date-format="{value} 日" v-model="pickerValue"></mt-datetime-picker>
+        <div class="no-scroll" @touchmove.prevent>
+            <mt-datetime-picker ref="picker" type="date" year-format="{value} 年" :startDate='startTime' :endDate='endTime' month-format="{value} 月" date-format="{value} 日" v-model="pickerValue"></mt-datetime-picker>
+        </div>
     </div>
 </template>
 <script>
 import { OperationNumber, timetrans } from '../common/mixins.js'
+import { MessageBox } from 'mint-ui'
 
 export default {
     name:"TreeForm",
@@ -91,9 +94,9 @@ export default {
         return{
             detailsArry:'',
             father:'',
-            noScroll:false,
             pickerValue:'',
-            startTime:new Date('1900','1','1'),
+            visible:false,
+            startTime:new Date('1900','0','1'),
             endTime:new Date(),
             formArry:{
                 tel:'',
@@ -125,13 +128,27 @@ export default {
              this.detailsArry.partner.splice(key,1)
         },
         remove(key){
-            this.detailsArry.children.splice(key,1)
+                MessageBox.confirm('', { 
+                message: '这会删除他的分支，确定删除？', 
+                title: '提示', 
+                confirmButtonText: '删除', 
+                cancelButtonText: '取消' 
+                }).then(action => { 
+                    if (action == 'confirm') {    
+                     this.detailsArry.children.splice(key,1)
+                }
+                }).catch(err => { 
+                    if (err == 'cancel') {} 
+                })
         },
         removeFather(){
             this.father = ''
         },
         removeBirth(){
             this.formArry.BirthDay = ''
+        },
+        cancel(){
+            this.$router.go(-1)
         }
     }
 }
@@ -142,6 +159,11 @@ export default {
     float: right;
 }
 
+.noScroll{
+    height: 100%;
+    overflow: auto;
+}
+
 .btn-full{
     padding: 1.25rem /* 20/16 */;
     margin-top: 1.875rem /* 30/16 */;
@@ -150,10 +172,16 @@ export default {
 .info{
     padding-top: 1.25rem /* 20/16 */;
     padding-bottom: 5rem /* 80/16 */;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 .hd-bar{
     padding: .625rem /* 10/16 */ 1.25rem /* 20/16 */;
+    position: relative;
+    z-index:10;
 }
 
 .info-title{
@@ -256,9 +284,5 @@ a.remove{
     margin-top: 1.25rem /* 20/16 */;
     height: auto;
     overflow: hidden;
-}
-
-.mint-datetime{
- 
 }
 </style>

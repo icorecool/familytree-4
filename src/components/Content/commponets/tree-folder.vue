@@ -120,6 +120,7 @@ a.info {
 .info.man {
     background: #2196f3;
     opacity: 0.9;
+    user-select: none;
 }
 
 .info.man .partner {
@@ -128,9 +129,6 @@ a.info {
     border-right: 1px solid #ddd;
     background: #fff;
     color: #333;
-}
-
-.folder {
 }
 </style>
 
